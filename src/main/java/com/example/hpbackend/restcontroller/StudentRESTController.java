@@ -3,6 +3,7 @@ package com.example.hpbackend.restcontroller;
 import com.example.hpbackend.model.Student;
 import com.example.hpbackend.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,12 +21,15 @@ public class StudentRESTController {
         return studentService.showAllStudents();
     }
 
-    /*
-    Metode til at udhente alle elever fra givent hus
-    */
-    @GetMapping("all/{house}")
-    public List<Student> showAllStudentsFromHouse(@PathVariable String house) {
-        return studentService.showAllFromHouse(house);
+    // Gør denne mulig + muliggør at søge på studentid i samme felt
+    @GetMapping("/all/house")
+    public List<Student> showAllStudentsFromHouse(@RequestParam String name) {
+        return studentService.showAllFromHouse(name);
     }
 
+    @PostMapping("/add")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Student addStudent(@RequestBody Student student) {
+        return studentService.addStudent(student);
+    }
 }
