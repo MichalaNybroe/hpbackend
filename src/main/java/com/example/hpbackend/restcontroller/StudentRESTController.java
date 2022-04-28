@@ -16,6 +16,11 @@ public class StudentRESTController {
     @Autowired
     StudentService studentService;
 
+    @GetMapping("/student")
+    public List<Student> showSearchedStudents(@RequestParam String searchInput) {
+        return studentService.showSearchedStudents(searchInput);
+    }
+
     @GetMapping("/all")
     public List<Student> showAllStudents() {
         return studentService.showAllStudents();

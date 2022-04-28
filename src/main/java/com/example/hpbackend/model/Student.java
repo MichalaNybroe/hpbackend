@@ -2,27 +2,36 @@ package com.example.hpbackend.model;
 
 import com.example.hpbackend.House;
 import com.example.hpbackend.Pet;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.TermVector;
 
 import javax.persistence.*;
 
 @Entity
+@Indexed
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Field(termVector = TermVector.YES, name = "student_id")
     private int id;
 
     @Column(nullable = false)
+    @Field(termVector = TermVector.YES)
     private String firstName;
 
+    @Field(termVector = TermVector.YES)
     private String middleName;
 
     @Column(nullable = false)
+    @Field(termVector = TermVector.YES)
     private String lastName;
 
     @Column(nullable = false)
     private int yearOfBirth;
 
     @Enumerated(EnumType.ORDINAL)
+    //@Field(termVector = TermVector.YES)
     private House house;
 
     private int schoolYear;
